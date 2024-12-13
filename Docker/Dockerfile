@@ -205,13 +205,13 @@
     # Based on https://huggingface.co/docs/transformers/installation
     # Based on https://huggingface.co/docs/datasets/installation
 
-    $PIP_INSTALL transformers==4.35.2 \
-        datasets==2.14.5 \
-        peft==0.6.2 \
+    $PIP_INSTALL transformers \
+        datasets \
+        peft \
         tokenizers \
-        accelerate==0.24.1 \
-        diffusers==0.21.4 \
-        safetensors==0.4.0 && \
+        accelerate \
+        diffusers \
+        safetensors && \
 
 
 # ==================================================================
@@ -220,7 +220,7 @@
 
     # Based on https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html#pip
 
-    $PIP_INSTALL jupyterlab==3.6.5
+    $PIP_INSTALL jupyterlab
 
 
 # ==================================================================
@@ -228,37 +228,37 @@
 # ------------------------------------------------------------------
 
     RUN $PIP_INSTALL \
-        bitsandbytes==0.41.2 \
-        cloudpickle==2.2.1 \
-        scikit-image==0.21.0 \
-        scikit-learn==1.3.0 \
-        matplotlib==3.7.3 \
-        ipywidgets==8.1.1 \
-        cython==3.0.2 \
-        tqdm==4.66.1 \
-        gdown==4.7.1 \
-        xgboost==1.7.6 \
-        pillow==9.5.0 \
-        seaborn==0.12.2 \
-        sqlalchemy==2.0.21 \
-        spacy==3.6.1 \
-        nltk==3.8.1 \
-        boto3==1.28.51 \
-        tabulate==0.9.0 \
-        future==0.18.3 \
-        jsonify==0.5 \
-        opencv-python==4.8.0.76 \
-        openpyxl==3.1.2 \
-        pyyaml==5.4.1 \
-        sentence-transformers==2.2.2 \
-        wandb==0.15.10 \
-        deepspeed==0.10.3 \
-        cupy-cuda12x==12.2.0 \
-        timm==0.9.7 \
-        omegaconf==2.3.0 \
-        scipy==1.11.2 \
-        gradient==2.0.6
-    RUN $PIP_INSTALL attrs==23.1.0
+        bitsandbytes \
+        cloudpickle \
+        scikit-image \
+        scikit-learn \
+        matplotlib \
+        ipywidgets \
+        cython \
+        tqdm \
+        gdown \
+        xgboost \
+        pillow \
+        seaborn \
+        sqlalchemy \
+        spacy \
+        nltk \
+        boto3 \
+        tabulate \
+        future \
+        jsonify \
+        opencv-python \
+        openpyxl \
+        pyyaml \
+        sentence-transformers \
+        wandb \
+        deepspeed \
+        cupy-cuda12x \
+        timm \
+        omegaconf \
+        scipy \
+        gradient
+    RUN $PIP_INSTALL attrs
 
 
 # ==================================================================
@@ -286,8 +286,7 @@
 
     RUN curl -sL https://deb.nodesource.com/setup_20.x | bash  && \
         $APT_INSTALL nodejs  && \
-        $PIP_INSTALL jupyter_contrib_nbextensions==0.7.0 jupyterlab-git==0.43.0 && \
-        jupyter contrib nbextension install --user
+        $PIP_INSTALL jupyterlab-git==0.50 && 
                 
 
 # ==================================================================
