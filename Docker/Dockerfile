@@ -64,8 +64,8 @@
 # Initial setup
 # ------------------------------------------------------------------
 
-    # Ubuntu 22.04 LTS as base image since CuPy is tested against
-    FROM ubuntu:22.04
+    # Ubuntu 24.04 LTS as base image, more up-to-date even if CuPy is not tested against #livehard-diehard
+    FROM ubuntu:latest
     RUN yes| unminimize
 
     # Set ENV variables
@@ -156,23 +156,25 @@
     ENV PATH=$PATH:/root/.local/bin    
 
 # ==================================================================
-# Installing CUDA packages (CUDA Toolkit 12.0 and CUDNN 8.9.7)
+# Installing CUDA packages (CUDA Toolkit 12.6 and CUDNN 8.9.7)
 # ------------------------------------------------------------------
-    RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin && \
-        mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600 && \
-        wget https://developer.download.nvidia.com/compute/cuda/12.0.0/local_installers/cuda-repo-ubuntu2204-12-0-local_12.0.0-525.60.13-1_amd64.deb && \
-        dpkg -i cuda-repo-ubuntu2204-12-0-local_12.0.0-525.60.13-1_amd64.deb && \
-        cp /var/cuda-repo-ubuntu2204-12-0-local/cuda-*-keyring.gpg /usr/share/keyrings/ && \
+    RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-ubuntu2404.pin && \
+        mv cuda-ubuntu2404.pin /etc/apt/preferences.d/cuda-repository-pin-600 && \
+        # https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=24.04&target_type=deb_local
+        wget https://developer.download.nvidia.com/compute/cuda/12.6.3/local_installers/cuda-repo-ubuntu2404-12-6-local_12.6.3-560.35.05-1_amd64.deb && \
+        dpkg -i cuda-repo-ubuntu2404-12-6-local_12.6.3-560.35.05-1_amd64.deb && \
+        cp /var/cuda-repo-ubuntu2404-12-6-local/cuda-*-keyring.gpg /usr/share/keyrings/ && \
         apt-get update && \
-        $APT_INSTALL cuda && \  
-        rm cuda-repo-ubuntu2204-12-0-local_12.0.0-525.60.13-1_amd64.deb
+        $APT_INSTALL cuda && \
+        rm cuda-repo-ubuntu2404-12-6-local_12.6.3-560.35.05-1_amd64.deb
 
     # Installing CUDNN
-    RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/3bf863cc.pub && \
-        add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/ /" && \
+    RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/3bf863cc.pub && \
+        add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/ /" && \
         apt-get update && \
-        $APT_INSTALL libcudnn8=8.9.7.29-1+cuda12.2  \
-                     libcudnn8-dev=8.9.7.29-1+cuda12.2
+        $APT_INSTALL libcudnn9=libcudnn9-cuda-12_9.6.0.74-1 \
+                     libcudnn9-dev=libcudnn9-dev-cuda-12_9.6.0.74-1 \
+                     
 
 
     ENV PATH=$PATH:/usr/local/cuda/bin
